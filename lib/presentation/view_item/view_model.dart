@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/animation.dart';
 import 'package:flutter_univarsal_architecture/data/repository/http_repo_impl.dart';
 import 'package:flutter_univarsal_architecture/route%20_management/navigator_service.dart';
 import 'package:flutter_univarsal_architecture/utils/gobal_timer.dart';
@@ -13,7 +14,8 @@ import 'bloc_events.dart';
 
 
 class ItemViewModel{
-   StreamSubscription<int>? subscription;
+  late AnimationController controller;
+  StreamSubscription<int>? subscription;
    final streamController  = StreamController<ItemState>();
    Stream<ItemState> get streamState => streamController.stream;
 initialPage(){

@@ -5,8 +5,8 @@ import 'package:flutter_univarsal_architecture/data/model/api_data_model.dart';
 import 'package:flutter_univarsal_architecture/data/repository/http_repo.dart';
 import 'package:flutter_univarsal_architecture/data/source/remote_source/http_web_service.dart';
 
-class HttpRepoImpl extends HttpRepo{
-  HttpWebService _httpWebService;
+class HttpRepoImpl implements HttpRepo{
+  final HttpWebService _httpWebService;
   HttpRepoImpl(this._httpWebService);
 
 

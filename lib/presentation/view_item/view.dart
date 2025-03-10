@@ -29,11 +29,16 @@ class ItemPage extends StatefulWidget {
   State<ItemPage> createState() => _ItemPageState();
 }
 
-class _ItemPageState extends State<ItemPage> {
+class _ItemPageState extends State<ItemPage>  with SingleTickerProviderStateMixin {
+
   final _itemViewModel =ItemViewModel();
   @override
   void initState() {
     _itemViewModel.initialPage();
+    _itemViewModel.controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    )..repeat();
     super.initState();
   }
 @override
@@ -85,7 +90,18 @@ class _ItemPageState extends State<ItemPage> {
                           clipper: WaveClipper(),
 
                         child: Image.network('https://media.istockphoto.com/id/2152960546/photo/young-woman-using-digital-tablet-at-home.jpg?s=1024x1024&w=is&k=20&c=27V7LRjvBh65_Zv0F5SNnHBh-_HAutLlkX-KXUgUmxk='),
-                      )
+
+                      ),
+                AnimatedBuilder(
+                  animation: _itemViewModel.controller,
+                  builder: (context, child) {
+                    return CustomPaint(
+                      painter: WavePainter(_itemViewModel.controller.value),
+                      size: Size(double.infinity, 200),
+                    );
+                  },
+                ),
+
                   ],)
               );
             }else{

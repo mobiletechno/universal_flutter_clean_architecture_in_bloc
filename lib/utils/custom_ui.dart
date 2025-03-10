@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +33,35 @@ class Customclip extends CustomClipper{
     throw UnimplementedError();
   }
 
+}
+class WavePainter extends CustomPainter {
+  final double waveValue;
+  WavePainter(this.waveValue);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.red
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+
+    final path = Path();
+    for (double i = 0; i < size.width; i++) {
+      double y = 50 * sin((i / size.width * 2 * pi) + (waveValue * 2 * pi)) + 100;
+      if (i == 0) {
+        path.moveTo(i, y);
+      } else {
+        path.lineTo(i, y);
+      }
+    }
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(WavePainter oldDelegate) {
+    return oldDelegate.waveValue != waveValue;
+  }
 }
 
 class WaveClipper extends CustomClipper<Path> {
